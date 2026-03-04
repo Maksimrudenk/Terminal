@@ -10,8 +10,9 @@ class TerminalBufferTest {
 
         assertEquals(80, buffer.getWidth());
         assertEquals(24, buffer.getHeight());
-        assertEquals(2000, buffer.getScrollbackMaxLines());
+        assertEquals(2000, buffer.getScrollBackLimit());
         assertEquals(0, buffer.getCursorColumn());
+        assertEquals(0, buffer.getCursorRow());
         assertEquals(0, buffer.getCursorRow());
         assertEquals(0, buffer.getScrollbackLineCount());
     }

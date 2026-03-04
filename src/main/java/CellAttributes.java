@@ -20,7 +20,11 @@ public class CellAttributes {
                           boolean italic,
                           boolean underline) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.foreground = foreground;
+        this.background = background;
+        this.bold = bold;
+        this.italic = italic;
+        this.underline = underline;
     }
 
     public TerminalColor getForeground() {

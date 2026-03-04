@@ -1,19 +1,38 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class TerminalBuffer {
 
-    public TerminalBuffer(int width, int height, int scrollbackMaxLines) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    private final Deque<Line> scrollBack;
+    private final Line[] screen;
+    private final int width;
+    private final int height;
+    private final int scrollBackLimit;
+    private int CursorColumn;
+    private int CursorRow;
+    private CellAttributes currentAttributes = CellAttributes.DEFAULT;
+
+
+    public TerminalBuffer(int width, int height, int scrollBackLimit) {
+        this.width = width;
+        this.height = height;
+        this.scrollBackLimit = scrollBackLimit;
+        this.scrollBack = new ArrayDeque<>(scrollBackLimit);
+        this.screen = new Line[width];
+        this.CursorColumn = 0;
+        this.CursorRow = 0;
     }
 
     public int getWidth() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return width;
     }
 
     public int getHeight() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return height;
     }
 
-    public int getScrollbackMaxLines() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public int getScrollBackLimit() {
+        return scrollBackLimit;
     }
 
     public void setCurrentAttributes(CellAttributes attributes) {
@@ -21,15 +40,15 @@ public class TerminalBuffer {
     }
 
     public CellAttributes getCurrentAttributes() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return currentAttributes;
     }
 
     public int getCursorColumn() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return CursorColumn;
     }
 
     public int getCursorRow() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return CursorRow;
     }
 
     public void setCursorPosition(int column, int row) {
@@ -97,7 +116,7 @@ public class TerminalBuffer {
     }
 
     public int getScrollbackLineCount() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return scrollBack.size();
     }
 
     public void resize(int width, int height) {
