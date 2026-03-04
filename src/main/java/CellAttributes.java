@@ -7,6 +7,13 @@ public class CellAttributes {
     private final boolean italic;
     private final boolean underline;
 
+    public static final CellAttributes DEFAULT = new CellAttributes(TerminalColor.BLACK,
+            TerminalColor.BLACK,
+            false,
+            false,
+            false);
+
+
     public CellAttributes(TerminalColor foreground,
                           TerminalColor background,
                           boolean bold,
