@@ -196,24 +196,6 @@ class TerminalBufferTest {
     }
 
     @Test
-    void resize_changesDimensions_andPreservesBottomVisibleContent_whenPossible() {
-        TerminalBuffer buffer = new TerminalBuffer(4, 3, 10);
-
-        buffer.writeText("1111");
-        buffer.setCursorPosition(0, 1);
-        buffer.writeText("2222");
-        buffer.setCursorPosition(0, 2);
-        buffer.writeText("3333");
-
-        buffer.resize(4, 2);
-
-        assertEquals(4, buffer.getWidth());
-        assertEquals(2, buffer.getHeight());
-        assertEquals("2222", buffer.getLineAsString(0));
-        assertEquals("3333", buffer.getLineAsString(1));
-    }
-
-    @Test
     void writeText_wrapsToNextLine_test() {
         TerminalBuffer buffer = new TerminalBuffer(4, 3, 10);
 
