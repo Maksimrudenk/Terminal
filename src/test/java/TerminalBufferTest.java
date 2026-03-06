@@ -77,7 +77,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void writeText_overwritesExistingCells_andMovesCursor() {
+    void writeTextOverwritesExistingCells_test() {
         TerminalBuffer buffer = new TerminalBuffer(6, 2, 10);
 
         buffer.writeText("abcdef");
