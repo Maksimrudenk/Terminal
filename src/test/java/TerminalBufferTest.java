@@ -55,6 +55,28 @@ class TerminalBufferTest {
     }
 
     @Test
+    void writeTextAndReadAt_test() {
+        TerminalBuffer buffer = new TerminalBuffer(80, 24, 10);
+
+        buffer.writeText("Hello");
+
+        assertEquals('H', buffer.getCharacterAt(0, 0));
+        assertEquals('e', buffer.getCharacterAt(0, 1));
+        assertEquals('l', buffer.getCharacterAt(0, 2));
+        assertEquals('l', buffer.getCharacterAt(0, 3));
+        assertEquals('o', buffer.getCharacterAt(0, 4));
+    }
+
+    @Test
+    void writeEmpty_test(){
+        TerminalBuffer buffer = new TerminalBuffer(80, 24, 10);
+
+        buffer.writeText("");
+
+        assertEquals('\0', buffer.getCharacterAt(0, 0));
+    }
+
+    @Test
     void writeText_overwritesExistingCells_andMovesCursor() {
         TerminalBuffer buffer = new TerminalBuffer(6, 2, 10);
 

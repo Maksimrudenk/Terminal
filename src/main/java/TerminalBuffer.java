@@ -17,10 +17,14 @@ public class TerminalBuffer {
         this.width = width;
         this.height = height;
         this.scrollBackLimit = scrollBackLimit;
-        this.scrollBack = new ArrayDeque<>(scrollBackLimit);
-        this.screen = new Line[width];
         this.cursorColumn = 0;
         this.cursorRow = 0;
+        this.scrollBack = new ArrayDeque<>(scrollBackLimit);
+        this.screen = new Line[height];
+
+        for (int i = 0; i < height; i++) {
+            screen[i] = new Line(width);
+        }
     }
 
     public int getWidth() {
@@ -79,7 +83,21 @@ public class TerminalBuffer {
     }
 
     public void writeText(String text) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        char[] chars = text.toCharArray();
+        for (char c : chars) {
+            writeChar(c);
+        }
+    }
+
+    private boolean writeChar(char c) {
+        screen[cursorRow].setValueAt(c, cursorColumn);
+        if (cursorColumn == width-1){
+            cursorRow++;
+            cursorColumn = 0;
+            return true;
+        }
+        cursorColumn++;
+        return false;
     }
 
     public void insertText(String text) {
@@ -103,7 +121,7 @@ public class TerminalBuffer {
     }
 
     public Character getCharacterAt(int globalRow, int column) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return screen[globalRow].getValueAt(column);
     }
 
     public CellAttributes getAttributesAt(int globalRow, int column) {
