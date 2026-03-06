@@ -180,4 +180,8 @@ public class TerminalBuffer {
         return scrollBack.get(row).asString();
     }
 
+    public Character getScrollBackCharacterAt(int row, int column) {
+        return scrollBack.get(row).getValueAt(column);
+    }
+
 }
