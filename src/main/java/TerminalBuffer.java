@@ -104,7 +104,7 @@ public class TerminalBuffer {
 
     public void insertText(String text) {
         int shift = cursorColumn + text.length();
-        int returnRow = shift / width;
+        int returnRow = cursorRow + shift / width;
         int returnColumn = shift % width;
 
         Deque<Character> queue = new ArrayDeque<>();
