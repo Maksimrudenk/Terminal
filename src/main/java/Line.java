@@ -36,6 +36,13 @@ public class Line {
         cells[index].attributes = attributes;
     }
 
+    public void fillLineWith(char value){
+        int width = cells.length;
+        for (int i = 0; i < width; i++) {
+            cells[i].value = value;
+        }
+    }
+
     public String asString(){
         StringBuilder sb = new StringBuilder();
         for (Cell cell : cells) {

@@ -123,11 +123,16 @@ public class TerminalBuffer {
     }
 
     public void fillCurrentLine(Character fillChar) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (fillChar == null) fillChar = '\0';
+        screen[cursorRow].fillLineWith(fillChar);
     }
 
-    public void insertEmptyLineAtBottom() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public void insertNewLine() {
+        scrollBack.add(screen[0]);
+        for (int i = 0; i < height-1; i++) {
+            screen[i] = screen[i + 1];
+        }
+        screen[height-1] = new Line(width);
     }
 
     public void clearScreen() {
@@ -138,16 +143,16 @@ public class TerminalBuffer {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    public Character getCharacterAt(int globalRow, int column) {
-        return screen[globalRow].getValueAt(column);
+    public Character getCharacterAt(int row, int column) {
+        return screen[row].getValueAt(column);
     }
 
-    public CellAttributes getAttributesAt(int globalRow, int column) {
-        return screen[globalRow].getAttributesAt(column);
+    public CellAttributes getAttributesAt(int row, int column) {
+        return screen[row].getAttributesAt(column);
     }
 
-    public String getLineAsString(int globalRow) {
-        return screen[globalRow].asString();
+    public String getLineAsString(int row) {
+        return screen[row].asString();
     }
 
     public String getScreenAsString() {

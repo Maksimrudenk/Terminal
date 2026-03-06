@@ -104,7 +104,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void fillCurrentLine_canFillWithCharacter_orClearToEmpty() {
+    void fillCurrentLine_test() {
         TerminalBuffer buffer = new TerminalBuffer(4, 2, 10);
 
         buffer.writeText("abcd");
@@ -113,7 +113,7 @@ class TerminalBufferTest {
         assertEquals("xxxx", buffer.getLineAsString(0));
 
         buffer.fillCurrentLine(null);
-        assertEquals("    ", buffer.getLineAsString(0));
+        assertEquals("\0\0\0\0", buffer.getLineAsString(0));
     }
 
     @Test
@@ -121,15 +121,14 @@ class TerminalBufferTest {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
         buffer.writeText("111");
-        buffer.setCursorPosition(0, 1);
         buffer.writeText("222");
 
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
 
         assertEquals(1, buffer.getScrollbackLineCount());
-        assertEquals("111", buffer.getLineAsString(0));
-        assertEquals("222", buffer.getLineAsString(1));
-        assertEquals("   ", buffer.getLineAsString(2));
+        assertEquals("111", buffer.getScrollBackLineAsString(0));
+        assertEquals("222", buffer.getLineAsString(0));
+        assertEquals("\0\0\0", buffer.getLineAsString(1));
     }
 
     @Test
@@ -137,7 +136,7 @@ class TerminalBufferTest {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
         buffer.writeText("aaa");
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
         buffer.clearScreen();
 
         assertEquals(1, buffer.getScrollbackLineCount());
@@ -150,7 +149,7 @@ class TerminalBufferTest {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
         buffer.writeText("aaa");
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
         buffer.clearAll();
 
         assertEquals(0, buffer.getScrollbackLineCount());
@@ -178,11 +177,11 @@ class TerminalBufferTest {
         TerminalBuffer buffer = new TerminalBuffer(2, 2, 2);
 
         buffer.writeText("aa");
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
         buffer.writeText("bb");
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
         buffer.writeText("cc");
-        buffer.insertEmptyLineAtBottom();
+        buffer.insertNewLine();
 
         assertEquals(2, buffer.getScrollbackLineCount());
         assertEquals("bb", buffer.getLineAsString(0));
