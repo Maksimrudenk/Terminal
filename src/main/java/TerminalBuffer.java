@@ -137,7 +137,11 @@ public class TerminalBuffer {
     }
 
     public void clearScreen() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (int i = 0; i < height; i++) {
+            screen[i] = new Line(width);
+        }
+        cursorColumn = 0;
+        cursorRow = 0;
     }
 
     public void clearAll() {

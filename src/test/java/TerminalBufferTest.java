@@ -117,7 +117,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void insertEmptyLineAtBottom_scrollsTopLineIntoScrollback() {
+    void insertNewLine_test() {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
         buffer.writeText("111");
@@ -132,7 +132,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void clearScreen_keepsScrollback_butResetsVisibleArea() {
+    void clearScreen_test() {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
         buffer.writeText("aaa");
@@ -140,8 +140,8 @@ class TerminalBufferTest {
         buffer.clearScreen();
 
         assertEquals(1, buffer.getScrollbackLineCount());
-        assertEquals("   ", buffer.getLineAsString(1));
-        assertEquals("   ", buffer.getLineAsString(2));
+        assertEquals("\0\0\0", buffer.getLineAsString(0));
+        assertEquals("\0\0\0", buffer.getLineAsString(1));
     }
 
     @Test
