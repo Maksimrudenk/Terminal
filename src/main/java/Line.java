@@ -36,4 +36,12 @@ public class Line {
         cells[index].attributes = attributes;
     }
 
+    public String asString(){
+        StringBuilder sb = new StringBuilder();
+        for (Cell cell : cells) {
+            sb.append(cell.value);
+        }
+        return sb.toString();
+    }
+
 }

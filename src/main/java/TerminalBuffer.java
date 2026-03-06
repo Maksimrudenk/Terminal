@@ -130,7 +130,7 @@ public class TerminalBuffer {
     }
 
     public String getLineAsString(int globalRow) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return screen[globalRow].asString();
     }
 
     public String getScreenAsString() {
