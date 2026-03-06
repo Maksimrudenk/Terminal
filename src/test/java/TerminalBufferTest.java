@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TerminalBufferTest {
 
     @Test
-    void setup_appliesConfiguredDimensionsAndScrollbackLimit() {
+    void setup_test() {
         TerminalBuffer buffer = new TerminalBuffer(80, 24, 2000);
 
         assertEquals(80, buffer.getWidth());
@@ -18,8 +18,15 @@ class TerminalBufferTest {
     }
 
     @Test
-    void attributes_canBeSetAndUsedForSubsequentEdits() {
-        TerminalBuffer buffer = new TerminalBuffer(10, 2, 10);
+    void defaultAttributes_test(){
+        TerminalBuffer buffer = new TerminalBuffer(80, 24, 10);
+
+        assertEquals(CellAttributes.DEFAULT, buffer.getCurrentAttributes());
+    }
+
+    @Test
+    void attributesSetAndUsed_test() {
+        TerminalBuffer buffer = new TerminalBuffer(80, 24, 10);
         CellAttributes attrs = new CellAttributes(TerminalColor.RED, TerminalColor.BLUE, true, true, false);
 
         buffer.setCurrentAttributes(attrs);
