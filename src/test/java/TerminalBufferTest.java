@@ -119,7 +119,7 @@ class TerminalBufferTest {
 
     @Test
     void insertNewLine_test() {
-        TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
+        TerminalBuffer buffer = new TerminalBuffer(3, 3, 10);
 
         buffer.writeText("111");
         buffer.writeText("222");
@@ -176,7 +176,7 @@ class TerminalBufferTest {
         buffer.insertNewLine();
         buffer.writeText("java");
 
-        String expected = "Hi\0\0\n\0\0\0\0\njava";
+        String expected = "Hi\0\0\n\0\0\0\0\njava\n\0\0\0\0";
         assertEquals(expected, buffer.getAllContentAsString());
     }
 
@@ -187,9 +187,7 @@ class TerminalBufferTest {
         buffer.writeText("aa");
         buffer.insertNewLine();
         buffer.writeText("bb");
-        buffer.insertNewLine();
         buffer.writeText("cc");
-        buffer.insertNewLine();
 
         assertEquals(2, buffer.getScrollbackLineCount());
 
@@ -248,10 +246,10 @@ class TerminalBufferTest {
 
         buffer.writeText("abcdefghi");
 
-        assertEquals("def", buffer.getLineAsString(0));
-        assertEquals("ghi", buffer.getLineAsString(1));
+        assertEquals("ghi", buffer.getLineAsString(0));
 
         assertEquals("abc", buffer.getScrollBackLineAsString(0));
+        assertEquals("def", buffer.getScrollBackLineAsString(1));
     }
 }
 

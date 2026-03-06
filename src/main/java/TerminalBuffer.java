@@ -91,15 +91,22 @@ public class TerminalBuffer {
     }
 
     private boolean writeChar(char c) {
+
         screen[cursorRow].setValueAt(c, cursorColumn);
         screen[cursorRow].setAttributesAt(currentAttributes, cursorColumn);
-        if (cursorColumn == width-1){
-            cursorRow++;
+
+        if (cursorColumn == width - 1) {
             cursorColumn = 0;
+            cursorRow++;
+
+            if (cursorRow == height) {
+                insertNewLine();
+            }
             return true; // wrapped
         }
+
         cursorColumn++;
-        return false; // not wrapped
+        return false;
     }
 
     public void insertText(String text) {
