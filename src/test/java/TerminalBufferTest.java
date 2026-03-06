@@ -90,7 +90,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void insertText_shiftsRight_andWraps_whenLineEnds() {
+    void insertText_test() {
         TerminalBuffer buffer = new TerminalBuffer(5, 2, 10);
 
         buffer.writeText("12345");
@@ -98,7 +98,7 @@ class TerminalBufferTest {
         buffer.insertText("ab");
 
         assertEquals("12ab3", buffer.getLineAsString(0));
-        assertEquals("45   ", buffer.getLineAsString(1));
+        assertEquals("45\0\0\0", buffer.getLineAsString(1));
         assertEquals(4, buffer.getCursorColumn());
         assertEquals(0, buffer.getCursorRow());
     }

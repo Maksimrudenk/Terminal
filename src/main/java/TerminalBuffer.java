@@ -102,7 +102,24 @@ public class TerminalBuffer {
     }
 
     public void insertText(String text) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        int shift = cursorColumn + text.length();
+        int returnRow = shift / width;
+        int returnColumn = shift % width;
+
+        Deque<Character> queue = new ArrayDeque<>();
+        char[] chars = text.toCharArray();
+        for (char c : chars) {
+            queue.add(c);
+        }
+
+        while (!queue.isEmpty()) {
+            char c = getCharacterAt(cursorRow,cursorColumn);
+            if (c != '\0') queue.add(c);
+            writeChar(queue.remove());
+        }
+
+        cursorRow = returnRow;
+        cursorColumn = returnColumn;
     }
 
     public void fillCurrentLine(Character fillChar) {
