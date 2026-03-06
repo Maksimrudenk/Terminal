@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 class TerminalBufferTest {
 
@@ -145,16 +146,17 @@ class TerminalBufferTest {
     }
 
     @Test
-    void clearAll_resetsScreenAndScrollback() {
+    void clearAll_test() {
         TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
 
-        buffer.writeText("aaa");
+        buffer.writeText("123");
         buffer.insertNewLine();
+        buffer.writeText("456");
         buffer.clearAll();
 
         assertEquals(0, buffer.getScrollbackLineCount());
-        assertEquals("   ", buffer.getLineAsString(0));
-        assertEquals("   ", buffer.getLineAsString(1));
+        assertThrowsExactly(IndexOutOfBoundsException.class, () -> buffer.getScrollBackLineAsString(0));
+        assertEquals("\0\0\0", buffer.getLineAsString(0));
     }
 
     @Test

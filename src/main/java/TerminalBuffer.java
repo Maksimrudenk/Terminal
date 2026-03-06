@@ -96,10 +96,10 @@ public class TerminalBuffer {
         if (cursorColumn == width-1){
             cursorRow++;
             cursorColumn = 0;
-            return true;
+            return true; // wrapped
         }
         cursorColumn++;
-        return false;
+        return false; // not wrapped
     }
 
     public void insertText(String text) {
@@ -147,7 +147,8 @@ public class TerminalBuffer {
     }
 
     public void clearAll() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        clearScreen();
+        scrollBack.clear();
     }
 
     public Character getCharacterAt(int row, int column) {
