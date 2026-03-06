@@ -40,7 +40,7 @@ public class TerminalBuffer {
     }
 
     public void setCurrentAttributes(CellAttributes attributes) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        currentAttributes = attributes;
     }
 
     public CellAttributes getCurrentAttributes() {
@@ -91,6 +91,7 @@ public class TerminalBuffer {
 
     private boolean writeChar(char c) {
         screen[cursorRow].setValueAt(c, cursorColumn);
+        screen[cursorRow].setAttributesAt(currentAttributes, cursorColumn);
         if (cursorColumn == width-1){
             cursorRow++;
             cursorColumn = 0;
@@ -125,7 +126,7 @@ public class TerminalBuffer {
     }
 
     public CellAttributes getAttributesAt(int globalRow, int column) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return screen[globalRow].getAttributesAt(column);
     }
 
     public String getLineAsString(int globalRow) {
