@@ -181,7 +181,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void scrollbackIsCappedAtConfiguredMaximum() {
+    void scrollbackIsCappedAtConfiguredMaximum_test() {
         TerminalBuffer buffer = new TerminalBuffer(2, 2, 2);
 
         buffer.writeText("aa");
@@ -192,8 +192,9 @@ class TerminalBufferTest {
         buffer.insertNewLine();
 
         assertEquals(2, buffer.getScrollbackLineCount());
-        assertEquals("bb", buffer.getLineAsString(0));
-        assertEquals("cc", buffer.getLineAsString(1));
+
+        assertEquals("bb", buffer.getScrollBackLineAsString(1));
+        assertEquals("cc", buffer.getLineAsString(0));
     }
 
     @Test

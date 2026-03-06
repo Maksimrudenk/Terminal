@@ -130,6 +130,7 @@ public class TerminalBuffer {
 
     public void insertNewLine() {
         scrollBack.add(screen[0]);
+        if (scrollBack.size() > scrollBackLimit) scrollBack.remove();
         for (int i = 0; i < height-1; i++) {
             screen[i] = screen[i + 1];
         }
