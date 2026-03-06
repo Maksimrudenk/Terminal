@@ -5,14 +5,35 @@ public class Line {
     private static class Cell {
         private char value;
         private CellAttributes attributes;
+
+        private Cell(){
+            value = 0;
+            attributes = CellAttributes.DEFAULT;
+        }
     }
 
     public Line(int width) {
         cells = new Cell[width];
+
+        for (int i = 0; i < width; i++) {
+            cells[i] = new Cell();
+        }
     }
 
-    public Cell getCellAt(int index){
-        return cells[index];
+    public char getValueAt(int index){
+        return cells[index].value;
+    }
+
+    public void setValueAt(char value, int index){
+        cells[index].value = value;
+    }
+
+    public CellAttributes getAttributesAt(int index){
+        return cells[index].attributes;
+    }
+
+    public void setAttributesAt(CellAttributes attributes, int index){
+        cells[index].attributes = attributes;
     }
 
 }
