@@ -214,5 +214,44 @@ class TerminalBufferTest {
         assertEquals("2222", buffer.getLineAsString(0));
         assertEquals("3333", buffer.getLineAsString(1));
     }
+
+    @Test
+    void writeText_wrapsToNextLine_test() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 3, 10);
+
+        buffer.writeText("abcdef");
+
+        assertEquals("abcd", buffer.getLineAsString(0));
+        assertEquals("ef\0\0", buffer.getLineAsString(1));
+
+        assertEquals(2, buffer.getCursorColumn());
+        assertEquals(1, buffer.getCursorRow());
+    }
+
+    @Test
+    void writeText_wrapsAcrossMultipleLines_test() {
+        TerminalBuffer buffer = new TerminalBuffer(3, 4, 10);
+
+        buffer.writeText("abcdefghi");
+
+        assertEquals("abc", buffer.getLineAsString(0));
+        assertEquals("def", buffer.getLineAsString(1));
+        assertEquals("ghi", buffer.getLineAsString(2));
+
+        assertEquals(0, buffer.getCursorColumn());
+        assertEquals(3, buffer.getCursorRow());
+    }
+
+    @Test
+    void writeText_scrollsScreen_test() {
+        TerminalBuffer buffer = new TerminalBuffer(3, 2, 10);
+
+        buffer.writeText("abcdefghi");
+
+        assertEquals("def", buffer.getLineAsString(0));
+        assertEquals("ghi", buffer.getLineAsString(1));
+
+        assertEquals("abc", buffer.getScrollBackLineAsString(0));
+    }
 }
 
