@@ -134,6 +134,8 @@ public class TerminalBuffer {
             screen[i] = screen[i + 1];
         }
         screen[height-1] = new Line(width);
+        cursorRow = height - 1;
+        cursorColumn = 0;
     }
 
     public void clearScreen() {
@@ -161,11 +163,23 @@ public class TerminalBuffer {
     }
 
     public String getScreenAsString() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < height-1; i++) {
+            sb.append(screen[i].asString());
+            sb.append("\n");
+        }
+        sb.append(screen[height-1].asString());
+        return sb.toString();
     }
 
     public String getAllContentAsString() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        StringBuilder sb = new StringBuilder();
+        for (Line line: scrollBack) {
+            sb.append(line.asString());
+            sb.append("\n");
+        }
+        sb.append(getScreenAsString());
+        return sb.toString();
     }
 
     public int getScrollbackLineCount() {

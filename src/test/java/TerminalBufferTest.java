@@ -158,18 +158,24 @@ class TerminalBufferTest {
     }
 
     @Test
-    void contentAccess_returnsCharactersAttributes_andJoinedContent() {
+    void getScreenAsString_test() {
         TerminalBuffer buffer = new TerminalBuffer(4, 2, 10);
-        CellAttributes attrs = new CellAttributes(TerminalColor.GREEN, TerminalColor.DEFAULT, false, true, true);
-
-        buffer.setCurrentAttributes(attrs);
         buffer.writeText("Hi");
 
-        assertEquals('H', buffer.getCharacterAt(0, 0));
-        assertEquals('i', buffer.getCharacterAt(0, 1));
-        assertEquals(attrs, buffer.getAttributesAt(0, 0));
-        assertEquals("Hi  \n    ", buffer.getScreenAsString());
-        assertEquals("Hi  \n    ", buffer.getAllContentAsString());
+        String expected = "Hi\0\0\n\0\0\0\0";
+        assertEquals(expected, buffer.getScreenAsString());
+    }
+
+    @Test
+    void getAllContentAsString_test() {
+        TerminalBuffer buffer = new TerminalBuffer(4, 2, 10);
+
+        buffer.writeText("Hi");
+        buffer.insertNewLine();
+        buffer.writeText("java");
+
+        String expected = "Hi\0\0\n\0\0\0\0\njava";
+        assertEquals(expected, buffer.getAllContentAsString());
     }
 
     @Test
