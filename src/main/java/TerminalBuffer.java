@@ -1,9 +1,10 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class TerminalBuffer {
 
-    private final Deque<Line> scrollBack;
+    private final LinkedList<Line> scrollBack;
     private final Line[] screen;
     private final int width;
     private final int height;
@@ -19,7 +20,7 @@ public class TerminalBuffer {
         this.scrollBackLimit = scrollBackLimit;
         this.cursorColumn = 0;
         this.cursorRow = 0;
-        this.scrollBack = new ArrayDeque<>(scrollBackLimit);
+        this.scrollBack = new LinkedList<Line>();
         this.screen = new Line[height];
 
         for (int i = 0; i < height; i++) {
@@ -169,6 +170,10 @@ public class TerminalBuffer {
 
     public void resize(int width, int height) {
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    public String getScrollBackLineAsString(int row){
+        return scrollBack.get(row).asString();
     }
 
 }
