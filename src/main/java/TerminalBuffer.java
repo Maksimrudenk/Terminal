@@ -8,8 +8,8 @@ public class TerminalBuffer {
     private final int width;
     private final int height;
     private final int scrollBackLimit;
-    private int CursorColumn;
-    private int CursorRow;
+    private int cursorColumn;
+    private int cursorRow;
     private CellAttributes currentAttributes = CellAttributes.DEFAULT;
 
 
@@ -19,8 +19,8 @@ public class TerminalBuffer {
         this.scrollBackLimit = scrollBackLimit;
         this.scrollBack = new ArrayDeque<>(scrollBackLimit);
         this.screen = new Line[width];
-        this.CursorColumn = 0;
-        this.CursorRow = 0;
+        this.cursorColumn = 0;
+        this.cursorRow = 0;
     }
 
     public int getWidth() {
@@ -44,31 +44,38 @@ public class TerminalBuffer {
     }
 
     public int getCursorColumn() {
-        return CursorColumn;
+        return cursorColumn;
     }
 
     public int getCursorRow() {
-        return CursorRow;
+        return cursorRow;
     }
 
     public void setCursorPosition(int column, int row) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (column < 0) column = 0;
+        else if (column >= width) column = width - 1;
+
+        if (row < 0) row = 0;
+        else if (row >= height) row = height - 1;
+
+        cursorColumn = column;
+        cursorRow = row;
     }
 
     public void moveCursorUp(int cells) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        setCursorPosition(cursorColumn - cells, cursorRow);
     }
 
     public void moveCursorDown(int cells) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        setCursorPosition(cursorColumn + cells, cursorRow);
     }
 
     public void moveCursorLeft(int cells) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        setCursorPosition(cursorColumn, cursorRow - cells);
     }
 
     public void moveCursorRight(int cells) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        setCursorPosition(cursorColumn, cursorRow + cells);
     }
 
     public void writeText(String text) {

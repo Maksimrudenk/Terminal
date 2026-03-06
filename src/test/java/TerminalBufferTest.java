@@ -37,7 +37,7 @@ class TerminalBufferTest {
     }
 
     @Test
-    void setCursorPosition_andRelativeMovement_stayWithinScreenBounds() {
+    void setCursorPositionAndRelativeMovementStayWithinScreenBounds_test() {
         TerminalBuffer buffer = new TerminalBuffer(5, 3, 10);
 
         buffer.setCursorPosition(4, 2);
