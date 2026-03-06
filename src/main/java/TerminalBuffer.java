@@ -68,19 +68,19 @@ public class TerminalBuffer {
     }
 
     public void moveCursorUp(int cells) {
-        setCursorPosition(cursorColumn - cells, cursorRow);
+        setCursorPosition(cursorColumn , cursorRow - cells);
     }
 
     public void moveCursorDown(int cells) {
-        setCursorPosition(cursorColumn + cells, cursorRow);
+        setCursorPosition(cursorColumn , cursorRow + cells);
     }
 
     public void moveCursorLeft(int cells) {
-        setCursorPosition(cursorColumn, cursorRow - cells);
+        setCursorPosition(cursorColumn - cells, cursorRow );
     }
 
     public void moveCursorRight(int cells) {
-        setCursorPosition(cursorColumn, cursorRow + cells);
+        setCursorPosition(cursorColumn + cells, cursorRow );
     }
 
     public void writeText(String text) {
